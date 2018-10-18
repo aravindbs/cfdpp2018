@@ -1,0 +1,47 @@
+{% extends "users/base.html" %} {% block body %}
+<div class="container-fluid text-center main-body">
+    <div class="row content">
+        {% if current_user.is_authenticated %}
+        <div class="col-sm-12 text-center welcome">
+
+            <h1> Hello {{ current_user.username }}!</h1>
+        </div>
+        {% else %}
+        <div class="col-sm-12 text-center welcome">
+            <br><br>
+            <h1> Welcome to CFDPP2018</h1>
+        </div>
+        <div>
+            <a href="{{ url_for('users.signup') }}" class="btn btn-info"> Sign up</a>
+            <a href="{{ url_for('users.login') }}" class="btn btn-info"> Login </a>
+        </div>
+        {% endif %}
+        <div class="col-sm-12 text-center">
+            <div class="row features-bg">
+                <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </h2>
+                <div class="col-sm-4 text-center">
+                    <div class="features">
+                        <span class="glyphicon glyphicon-facetime-video"></span>
+                        <h3> Lorem Ipsum</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                    </div>
+                </div>
+                <div class="col-sm-4 text-center">
+                    <div class="features">
+                        <span class="glyphicon glyphicon-music"></span>
+                        <h3> Lorem Ipsum</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..</p>
+                    </div>
+                </div>
+                <div class="col-sm-4 text-center">
+                    <div class="features">
+                        <span class="glyphicon glyphicon-comment"></span>
+                        <h3> Lorem Ipsum</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
