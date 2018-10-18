@@ -16,7 +16,8 @@ html {
     height: 100%;
 }
 .navbar-admin {
-    background-color: #17a2b8;
+    background-color: white;
+    color: black;
 }
 .navbar-users {
     background-color: #222;
@@ -71,18 +72,24 @@ div.features-bg h2 {
 .footer-users {
      width:100%;
     background:  #222;;
-    color: white;
+    color: rgb(255, 255, 255);
     text-align: center;
  
 }
 
+
 .footer-admin {
     width:100%;
-   background: #17a2b8;;
-   color: white;
+   background: white;
+   color: black;
    text-align: center;
 
 }
+.footer-admin h5,
+.footer-admin a {
+    color: black
+}
+
 .page-wrap {
     min-height: 100%;
     /* equal to footer height */
