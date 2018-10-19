@@ -3,7 +3,7 @@ from flask_login import login_user, login_required, current_user, logout_user, l
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import mongo
 from app.login import User
-from app.forms.admin import AdminLoginForm, AdminSignUpForm
+from app.forms.admin import AdminLoginForm, AdminSignUpForm, ReportDiseaseForm
 
 
 admin = Blueprint('admin', __name__)
@@ -90,4 +90,7 @@ def logout():
 @admin.route('/dashboard/<user>')
 @login_required
 def dashboard(user):
-    return render_template ('admin/dashboard.html', title= 'Admin')
+
+    form = ReportDiseaseForm()
+    
+    return render_template ('admin/dashboard.html', title= 'Admin | Dashboard', form=form)
