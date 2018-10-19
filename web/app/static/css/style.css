@@ -156,20 +156,34 @@ label, button{
 
 }
 
-.dash-header{
-    background-color: #222 !important;
+.dash-header-admin{
+    background-color:white !important;
     padding: 2px 10px 2px;
     margin-right: 10px;
     border-radius: 5px;
 }
-.dash-body {
-    height: 40%;
+.dash-header-admin h5 {
+    color : #222;
+}
+.dash-body-admin {
     background-color: lightgray !important;
     margin-right: 10px;
     padding: 0%;
     border-radius: 5px;
-    overflow: scroll;
     margin-bottom : 20px;
+}
+.dash-body-admin button{
+    color: white;
+    margin : 10px;
+}
+.dash-body-admin button:hover{
+    color: white;
+    transition: 0.1s;
+    background-color : rgb(61, 61, 61);
+}
+.btn-actions {
+    background-color: #222;
+    color:white;
 }
 
 .dash-body-graph {

@@ -14,12 +14,13 @@ def index():
     return redirect(url_for('admin.login'))
 
 
-@admin.route('/login' , methods=['GET', 'POST'])
+@admin.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         login_data = request.form.to_dict()
         print(login_data)
-        user = mongo.db.users.find_one({'email': login_data['email'], 'role' : 'hcp'})
+        user = mongo.db.users.find_one(
+            {'email': login_data['email'], 'role': 'hcp'})
         print(user)
         if user:
             if check_password_hash(user['password'], login_data['password']):
@@ -52,12 +53,12 @@ def signup():
                 flash("Username Exists, Try Again")
                 print('here lol')
                 return redirect(url_for('admin.signup'))
-    
+
         form_data['role'] = 'hcp'
         form_data.pop('confirm')
         mongo.db.users.update(
-            {'username': form_data['username'], 'role' : 'hcp'}, form_data, upsert=True)
-        new_user = mongo.db.users.find_one( form_data )
+            {'username': form_data['username'], 'role': 'hcp'}, form_data, upsert=True)
+        new_user = mongo.db.users.find_one(form_data)
         user = User(new_user)
         login_user(user)
         return redirect(url_for('admin.dashboard', user=current_user.username))
@@ -90,4 +91,7 @@ def logout():
 @admin.route('/dashboard/<user>')
 @login_required
 def dashboard(user):
-    return render_template ('admin/dashboard.html', title= 'Admin')
+
+    query = {'username': user, 'role': 'hcp'}
+    user = mongo.db.users.find_one(query)
+    return render_template('admin/dashboard.html', title='Admin', user=user)
