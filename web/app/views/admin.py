@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import mongo
 from app.login import User
 from app.forms.admin import AdminLoginForm, AdminSignUpForm, ReportDiseaseForm
+import datetime 
 
 
 admin = Blueprint('admin', __name__)
@@ -41,7 +42,7 @@ def login():
 def signup():
     if request.method == 'POST':
         form_data = request.form.to_dict()
-
+        
         pwd = form_data['password']
         hashed_pwd = generate_password_hash(pwd)
 
@@ -93,4 +94,21 @@ def dashboard(user):
 
     form = ReportDiseaseForm()
     
+    if request.method == 'POST':
+        form_data = request.form.to_dict()
+
+    today_date = datetime.datetime.now()
+
+    report_today = dict(mongo.db.reports.find_one({'date' : today_date, 'disease_name' : form_data['name']}))
+    
+    if report_today is not None: 
+        query = report_today
+        update = report_today 
+        update['number'] = query['number'] + form_data['number']
+        db.report.update(query, update, upsert=True)
+
+    else: 
+        db.report.insert(form_data) 
+    
     return render_template ('admin/dashboard.html', title= 'Admin | Dashboard', form=form)
+
