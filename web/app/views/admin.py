@@ -3,7 +3,7 @@ from flask_login import login_user, login_required, current_user, logout_user, l
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import mongo
 from app.login import User
-from app.forms.admin import AdminLoginForm, AdminSignUpForm
+from app.forms.admin import AdminLoginForm, AdminSignUpForm, ReportDiseaseForm
 
 
 admin = Blueprint('admin', __name__)
@@ -88,10 +88,16 @@ def logout():
     return redirect(url_for('admin.login'))
 
 
-@admin.route('/dashboard/<user>')
+@admin.route('<user>/dashboard/')
 @login_required
 def dashboard(user):
 
     query = {'username': user, 'role': 'hcp'}
     user = mongo.db.users.find_one(query)
     return render_template('admin/dashboard.html', title='Admin', user=user)
+
+@admin.route('<user>/reportdisease')
+@login_required
+def reportdisease(user):
+    form = ReportDiseaseForm()
+    return render_template('admin/reportdisease.html', title = 'Report Disease', form = form)

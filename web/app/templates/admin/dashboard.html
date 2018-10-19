@@ -17,12 +17,13 @@
                 <h5> Actions </h5>
             </div>
             <div class="dash-body-admin text-left">
-                <button class="btn btn-actions"> Report Disease </button>
+                <a href="{{ url_for('admin.reportdisease', user=current_user.username) }}" class="btn btn-actions"> Report
+                    Disease </a>
 
             </div>
 
 
         </div>
     </div>
-    </div>
-    {% endblock %}
+</div>
+{% endblock %}

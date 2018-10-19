@@ -11,7 +11,7 @@ class UserSignUpForm(Form):
         validators.DataRequired(),
         validators.EqualTo('confirm', message='Passwords must match')
     ])
-    confirm = PasswordField('Repeat Password')
+    confirm = PasswordField('Confirm Password')
     submit = SubmitField('Submit')
 
 class UserLoginForm(Form):

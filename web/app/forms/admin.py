@@ -1,6 +1,6 @@
 from flask_wtf import Form
 from wtforms import TextField
-from wtforms import Form, BooleanField, StringField, PasswordField, SubmitField, validators
+from wtforms import Form, BooleanField, StringField, PasswordField, RadioField, IntegerField, SubmitField, validators
 
 class AdminSignUpForm(Form):
     username = StringField('Username', [validators.Length(min=4, max=25)])
@@ -11,8 +11,9 @@ class AdminSignUpForm(Form):
         validators.DataRequired(),
         validators.EqualTo('confirm', message='Passwords must match')
     ])
-    confirm = PasswordField('Repeat Password')
-    admin_type = StringField('Administrator Type', [validators.Length(min=6, max=35)])
+    confirm = PasswordField('Confirm Password')
+    #admin_type = StringField('Administrator Type', [validators.Length(min=6, max=35)])
+
     submit = SubmitField('Submit')
 
 class AdminLoginForm(Form):
@@ -21,4 +22,10 @@ class AdminLoginForm(Form):
         validators.DataRequired(),
         validators.EqualTo('confirm', message='Passwords must match')
     ])
-    submit = SubmitField('submit')
+    submit = SubmitField('Submit')
+
+class ReportDiseaseForm(Form):
+    name = StringField('Name of Disease' , [validators.DataRequired()])
+    epidemic = RadioField('Epidemic in Nature' , choices = [('yes', 'Yes'), ('no', 'No')])
+    number = IntegerField('Number of cases', [validators.DataRequired()])
+    submit = SubmitField('Submit')
