@@ -82,7 +82,22 @@ def logout():
 
 
 
-@users.route('/dashboard/<user>')
+@users.route('/dashboard/<user>',methods=['GET', 'POST'])
 @login_required
 def dashboard(user):
-    return render_template ('users/dashboard.html', title = 'Home | {username}'.format(username=user))
+    query = {'username': user, 'role': 'user'}
+    user = mongo.db.users.find_one(query)
+
+    if request.method == "POST":
+        position = request.json
+        
+        query = {'username' : current_user.username}
+        position['username'] = current_user.username
+
+        if mongo.db.current_loc.find_one({'username' : current_user.username}):
+            mongo.db.current_loc.update(query, { '$set' : update } , upsert=True) 
+        else: 
+            mongo.db.current_loc.insert(position)
+        
+            
+    return render_template ('users/dashboard.html', title = 'Home | {username}'.format(username=user), user=user)

@@ -4,9 +4,18 @@ from flask import Flask, Blueprint
 
 from flask_pymongo import PyMongo
 from flask_login import LoginManager
+import yaml 
+
+def load_config ():
+    with open ('../config.yml') as f:
+        config = yaml.load(f)
+        return config 
+
+config = load_config()
 
 app = Flask(__name__)
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/testcfd'
+jsglue = JSGlue(app) 
+app.config['MONGO_URI'] = config['COSMOS_DB_URI']
 app.secret_key = 'abcd'
 
 login_manager = LoginManager()

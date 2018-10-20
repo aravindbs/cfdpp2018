@@ -156,20 +156,41 @@ label, button{
 
 }
 
-.dash-header{
-    background-color: #222 !important;
+.dash-header-admin{
+    background-color:white !important;
     padding: 2px 10px 2px;
     margin-right: 10px;
     border-radius: 5px;
 }
-.dash-body {
-    height: 40%;
+.dash-header-admin h5 {
+    color : #222;
+}
+.dash-body-admin {
     background-color: lightgray !important;
     margin-right: 10px;
     padding: 0%;
     border-radius: 5px;
-    overflow: scroll;
     margin-bottom : 20px;
+}
+.dash-body-admin a{
+    color: white;
+    margin : 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.dash-body-admin a:hover{
+    color: white;
+    transition: 0.1s;
+    background-color : rgb(61, 61, 61);
+}
+.dash-body-admin a:active{
+    color: white;
+    margin : 10px;
+    transition: 0.1s;
+    box-shadow: 0;
+}
+.btn-actions {
+    background-color: #222;
+    color:white;
 }
 
 .dash-body-graph {
@@ -222,6 +243,22 @@ label, button{
     max-height: 30%;
     overflow: scroll;
 }
+
+.radio-label{
+    padding: 0% !important;
+    vertical-align: baseline;
+    font-family:  Ubuntu-M;
+    color: black;
+
+}
+.radio-button{
+    vertical-align: baseline;
+}
+
+.radio-middle{
+    vertical-align: middle;
+}
+
 #github-logo{
     height: 14px;
     width: 14px;

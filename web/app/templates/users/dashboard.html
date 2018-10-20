@@ -1,3 +1,39 @@
 {% extends "users/base.html" %} {% block body %}
+<head> {{ JSGlue.include() }} </head>
+
     <h1 class='text-center'> This is the user dashboard!</h1>
+
+<script>
+    window.onload = function() {
+  getLocation();
+};
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(savePosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+    function savePosition(position) {
+        var latitude = position.coords.latitude 
+        var longitude = position.coords.longitude; 
+
+        var position = 
+        {
+            'latitude' : latitude, 
+            'longitude' : longitude
+        }
+        var url = "/dashboard/" + "{{current_user.username|safe}}"
+        $.ajax({
+        url: url,
+        type: 'POST',
+        data: JSON.stringify(position),   // converts js value to JSON string
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        async: false,
+        }).done(function(result){ console.log(result) })
+       
+        }
+
+     </script>
 {% endblock %}

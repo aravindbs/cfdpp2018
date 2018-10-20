@@ -1,6 +1,6 @@
 from flask_wtf import Form
 from wtforms import TextField
-from wtforms import Form, BooleanField, StringField, PasswordField, RadioField, DateField, IntegerField, SubmitField, validators
+from wtforms import Form, BooleanField, StringField, PasswordField, RadioField, DateField, IntegerField, SubmitField, validators, FileField
 
 class AdminSignUpForm(Form):
     username = StringField('Username', [validators.Length(min=4, max=25)])
@@ -26,8 +26,9 @@ class AdminLoginForm(Form):
 
 class ReportDiseaseForm(Form):
     name = StringField('Name of Disease' , [validators.DataRequired()])
-    epidemic = RadioField('Epidemic in Nature' , choices = [('yes', 'Yes'), ('no', 'No')])
-    number = IntegerField('Number of cases', [validators.DataRequired()])
     date = DateField('Date of Report')
+    age = IntegerField('Age of patient')
+    gender = RadioField('Gender' , choices = [('male', 'Male') , ('female', 'Female')])
+    file = FileField('Upload Report File')
     submit = SubmitField('Submit')
     

@@ -5,7 +5,8 @@ from app import mongo
 from app.login import User
 from app.forms.admin import AdminLoginForm, AdminSignUpForm, ReportDiseaseForm
 import datetime 
-
+import os
+from werkzeug.utils import secure_filename
 
 admin = Blueprint('admin', __name__)
 
@@ -15,12 +16,13 @@ def index():
     return redirect(url_for('admin.login'))
 
 
-@admin.route('/login' , methods=['GET', 'POST'])
+@admin.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         login_data = request.form.to_dict()
         print(login_data)
-        user = mongo.db.users.find_one({'email': login_data['email'], 'role' : 'hcp'})
+        user = mongo.db.users.find_one(
+            {'email': login_data['email'], 'role': 'hcp'})
         print(user)
         if user:
             if check_password_hash(user['password'], login_data['password']):
@@ -53,12 +55,12 @@ def signup():
                 flash("Username Exists, Try Again")
                 print('here lol')
                 return redirect(url_for('admin.signup'))
-    
+
         form_data['role'] = 'hcp'
         form_data.pop('confirm')
         mongo.db.users.update(
-            {'username': form_data['username'], 'role' : 'hcp'}, form_data, upsert=True)
-        new_user = mongo.db.users.find_one( form_data )
+            {'username': form_data['username'], 'role': 'hcp'}, form_data, upsert=True)
+        new_user = mongo.db.users.find_one(form_data)
         user = User(new_user)
         login_user(user)
         return redirect(url_for('admin.dashboard', user=current_user.username))
@@ -88,27 +90,31 @@ def logout():
     return redirect(url_for('admin.login'))
 
 
-@admin.route('/dashboard/<user>')
+@admin.route('<user>/dashboard/')
 @login_required
 def dashboard(user):
 
+    query = {'username': user, 'role': 'hcp'}
+    user = mongo.db.users.find_one(query)
+    return render_template('admin/dashboard.html', title='Admin', user=user)
+
+@admin.route('<user>/reportdisease', methods=['GET', 'POST'])
+@login_required
+def reportdisease(user):
     form = ReportDiseaseForm()
     
     if request.method == 'POST':
         form_data = request.form.to_dict()
+        print(form_data)
+        for f in request.files.getlist('file'):
+            print(f)
+            if f.filename:
+                filename = secure_filename(f.filename)
+                f.save(os.path.join("app/static/files/", filename))
+                url = "../static/files/" + filename 
+        
+        form_data['url'] = url 
+        form_data.pop('submit')
+        mongo.db.reports.insert(form_data)
 
-    today_date = datetime.datetime.now()
-
-    report_today = dict(mongo.db.reports.find_one({'date' : today_date, 'disease_name' : form_data['name']}))
-    
-    if report_today is not None: 
-        query = report_today
-        update = report_today 
-        update['number'] = query['number'] + form_data['number']
-        db.report.update(query, update, upsert=True)
-
-    else: 
-        db.report.insert(form_data) 
-    
-    return render_template ('admin/dashboard.html', title= 'Admin | Dashboard', form=form)
-
+    return render_template('admin/reportdisease.html', title = 'Report Disease', form = form)
