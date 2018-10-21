@@ -1,0 +1,70 @@
+{% extends "users/base.html" %} {% block body %}
+
+    <script type='text/javascript'
+            src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap'
+            async defer></script>
+    <script type='text/javascript'>
+    function GetMap() {
+        var map = new Microsoft.Maps.Map('#myMap', {
+            credentials: '{{ api }}',
+            center: new Microsoft.Maps.Location({{ current_location.latitude }}, {{ current_location.longitude}})
+        });
+
+        infobox = new Microsoft.Maps.Infobox(map.getCenter(), {
+            visible: false
+        });
+
+        infobox.setMap(map);
+
+        var center = map.getCenter();
+
+        //Create custom Pushpin
+        
+        var pin = new Microsoft.Maps.Pushpin(center, { color: 'blue' });
+
+        //Add the pushpin to the map
+        map.entities.push(pin);
+
+        var latlongs = JSON.parse('{{ plot_locations | tojson }}');
+        console.log(latlongs)
+        var locs = [];
+        
+        for(var i=0,len = latlongs.length;i<len;i++){
+            
+            var newElement = {}
+            newElement = new Microsoft.Maps.Location(latlongs[i].latitude, latlongs[i].longitude)
+            locs.push(newElement);
+            console.log(locs.length)
+            var pin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(latlongs[i].latitude, latlongs[i].longitude) , { color : 'red'});
+            pin.metadata = {
+                title: 'Pin ' + i,
+                description: 'Description for pin' + i
+            };
+            
+            Microsoft.Maps.Events.addHandler(pin, 'click', pushpinClicked);
+            map.entities.push(pin);
+        }
+        locs.push(center)
+        var bounds = Microsoft.Maps.LocationRect.fromLocations(locs);
+        map.setView({bounds:bounds, padding: 100});
+
+    }
+
+    function pushpinClicked(e) {
+        //Make sure the infobox has metadata to display.
+        if (e.target.metadata) {
+            //Set the infobox options with the metadata of the pushpin.
+            infobox.setOptions({
+                location: e.target.getLocation(),
+                title: e.target.metadata.title,
+                description: e.target.metadata.description,
+                visible: true
+            });
+        }
+    }
+    </script>
+
+
+    <div id="myMap" style="position:relative;width:1200px;height:500px;"></div>
+    {% endblock %}
+</html>

@@ -53,7 +53,6 @@ def signup():
             user = mongo.db.users.find_one({'email': form_data['email']})
             if user and user['role'] == 'hcp':
                 flash("Username Exists, Try Again")
-                print('here lol')
                 return redirect(url_for('admin.signup'))
 
         form_data['role'] = 'hcp'
@@ -68,7 +67,7 @@ def signup():
     args = request.args
     form = AdminSignUpForm()
  #   form_data = {}
-    title = 'CFDPP | Sign Up'
+    title = 'DiseaseWatch | Sign Up'
     if args:
         title = 'Moody | Edit Profile'
         user = args.get('user')
@@ -113,8 +112,8 @@ def reportdisease(user):
                 f.save(os.path.join("app/static/files/", filename))
                 url = "../static/files/" + filename 
         
-        form_data['url'] = url 
+                form_data['url'] = url 
         form_data.pop('submit')
         mongo.db.reports.insert(form_data)
-
+        
     return render_template('admin/reportdisease.html', title = 'Report Disease', form = form)

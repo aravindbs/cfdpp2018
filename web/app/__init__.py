@@ -14,7 +14,7 @@ def load_config ():
 config = load_config()
 
 app = Flask(__name__)
-jsglue = JSGlue(app) 
+
 app.config['MONGO_URI'] = config['COSMOS_DB_URI']
 app.secret_key = 'abcd'
 

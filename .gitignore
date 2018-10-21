@@ -1,7 +1,9 @@
 .vscode
 venv
-/app/static/files
+app/static/files
 config.yml
+config.js
+map.html
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

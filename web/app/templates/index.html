@@ -9,11 +9,14 @@
         {% else %}
         <div class="col-sm-12 text-center welcome">
             <br><br>
-            <h1> Welcome to CFDPP2018</h1>
+            <h1> Welcome to DiseaseWatch</h1>
         </div>
         <div>
-            <a href="{{ url_for('users.signup') }}" class="btn btn-info"> Sign up</a>
-            <a href="{{ url_for('users.login') }}" class="btn btn-info"> Login </a>
+            <a href="{{ url_for('users.signup') }}" class="btn btn-info"> Sign up as User</a>
+            <a href="{{ url_for('users.login') }}" class="btn btn-info"> Login as User </a>
+            <br> <br>
+            <a href="{{ url_for('admin.signup') }}" class="btn btn-info"> Sign up as Health Care Professional</a>
+            <a href="{{ url_for('admin.login') }}" class="btn btn-info"> Login as Health Care Professional</a>
         </div>
         {% endif %}
         <div class="col-sm-12 text-center">

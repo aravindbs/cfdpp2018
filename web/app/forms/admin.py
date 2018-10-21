@@ -25,7 +25,7 @@ class AdminLoginForm(Form):
     submit = SubmitField('Submit')
 
 class ReportDiseaseForm(Form):
-    name = StringField('Name of Disease' , [validators.DataRequired()])
+    disease_name = StringField('Name of Disease' , [validators.DataRequired()])
     date = DateField('Date of Report')
     age = IntegerField('Age of patient')
     gender = RadioField('Gender' , choices = [('male', 'Male') , ('female', 'Female')])

@@ -1,10 +1,14 @@
 astroid==2.0.4
 autopep8==1.4
+certifi==2018.10.15
+chardet==3.0.4
 Click==7.0
 Flask==1.0.2
 Flask-Login==0.4.1
 Flask-PyMongo==2.1.0
 Flask-WTF==0.14.2
+googlemaps==3.0.2
+idna==2.7
 isort==4.3.4
 itsdangerous==0.24
 Jinja2==2.10
@@ -16,8 +20,10 @@ pylint==2.1.1
 pymongo==3.7.2
 python-dateutil==2.7.3
 PyYAML==3.13
+requests==2.20.0
 six==1.11.0
 typed-ast==1.1.0
+urllib3==1.24
 Werkzeug==0.14.1
 wrapt==1.10.11
 WTForms==2.2.1
