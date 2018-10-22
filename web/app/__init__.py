@@ -27,5 +27,4 @@ from app.views.users import users
 app.register_blueprint(users)
 app.register_blueprint(admin, url_prefix='/admin')
 
-
 from app.views import index
