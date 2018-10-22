@@ -7,9 +7,8 @@ Flask==1.0.2
 Flask-Login==0.4.1
 Flask-PyMongo==2.1.0
 Flask-WTF==0.14.2
-googlemaps==3.0.2
-idna==2.7
 gunicorn==19.9.0
+idna==2.7
 isort==4.3.4
 itsdangerous==0.24
 Jinja2==2.10
