@@ -19,6 +19,14 @@ html {
     background-color: white;
     color: black;
 }
+
+.navbar-admin a {
+    color : black !important;
+}
+.navbar-admin a:hover{
+    color : darkgray !important;
+}
+
 .navbar-users {
     background-color: #222;
 }
@@ -162,7 +170,7 @@ label, button{
     margin-right: 10px;
     border-radius: 5px;
 }
-.dash-header-admin h5 {
+.dash-header-admin h5, h4 {
     color : #222;
 }
 .dash-body-admin {
