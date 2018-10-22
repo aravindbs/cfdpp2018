@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import mongo
 from app.login import User
 from app.forms.admin import AdminLoginForm, AdminSignUpForm, ReportDiseaseForm
-import datetime 
+import datetime
 import os
 from werkzeug.utils import secure_filename
 
@@ -44,7 +44,7 @@ def login():
 def signup():
     if request.method == 'POST':
         form_data = request.form.to_dict()
-        
+
         pwd = form_data['password']
         hashed_pwd = generate_password_hash(pwd)
 
@@ -97,11 +97,12 @@ def dashboard(user):
     user = mongo.db.users.find_one(query)
     return render_template('admin/dashboard.html', title='Admin', user=user)
 
+
 @admin.route('<user>/reportdisease', methods=['GET', 'POST'])
 @login_required
 def reportdisease(user):
     form = ReportDiseaseForm()
-    
+
     if request.method == 'POST':
         form_data = request.form.to_dict()
         print(form_data)
@@ -110,10 +111,10 @@ def reportdisease(user):
             if f.filename:
                 filename = secure_filename(f.filename)
                 f.save(os.path.join("app/static/files/", filename))
-                url = "../static/files/" + filename 
-        
-                form_data['url'] = url 
+                url = "../static/files/" + filename
+
+                form_data['url'] = url
         form_data.pop('submit')
         mongo.db.reports.insert(form_data)
-        
-    return render_template('admin/reportdisease.html', title = 'Report Disease', form = form)
+
+    return render_template('admin/reportdisease.html', title='Report Disease', form=form)
