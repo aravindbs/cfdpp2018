@@ -126,17 +126,21 @@ h1 ,h2,h3,h4, h5{
     font-family:  Ubuntu-B;
     color: white;
 }
+
 a,p, input, li{
     font-family:  Ubuntu-R;
     font : Ubuntu-R;
     color: white;
-
 }
 
+#date {
+    font-family:  Ubuntu-R;
+    font : Ubuntu-R;
+    color: black;
+}
 label, button{
     font-family:  Ubuntu-R;
     color: black;
-
 }
 
 .semi-bold-black{

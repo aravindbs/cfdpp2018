@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import mongo
 from app.login import User
 from app.forms.admin import AdminLoginForm, AdminSignUpForm, ReportDiseaseForm
-import datetime 
+from datetime import datetime 
 import os
 from werkzeug.utils import secure_filename
 
@@ -20,10 +20,8 @@ def index():
 def login():
     if request.method == 'POST':
         login_data = request.form.to_dict()
-        print(login_data)
         user = mongo.db.users.find_one(
             {'email': login_data['email'], 'role': 'hcp'})
-        print(user)
         if user:
             if check_password_hash(user['password'], login_data['password']):
                 user_obj = User(user)
@@ -73,11 +71,10 @@ def signup():
         user = args.get('user')
         form_data = mongo.db.users.find_one({'username': user})
         form_data.pop('password')
-        print(form_data)
+       
     return render_template('admin/signup.html',
                            title=title,
                            form=form,
-                           #   form_data = form_data
                            )
 
 
@@ -104,16 +101,20 @@ def reportdisease(user):
     
     if request.method == 'POST':
         form_data = request.form.to_dict()
-        print(form_data)
+      
         for f in request.files.getlist('file'):
-            print(f)
+           
             if f.filename:
                 filename = secure_filename(f.filename)
                 f.save(os.path.join("app/static/files/", filename))
                 url = "../static/files/" + filename 
         
                 form_data['url'] = url 
+                
         form_data.pop('submit')
+
+        form_data['date'] = datetime.strptime(form_data['date'], "%Y-%m-%d")
+
         mongo.db.reports.insert(form_data)
         
     return render_template('admin/reportdisease.html', title = 'Report Disease', form = form)

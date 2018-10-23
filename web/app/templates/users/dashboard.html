@@ -1,6 +1,35 @@
 {% extends "users/base.html" %} {% block body %}
-<h1 class='text-center'> This is the admin dashboard!</h1>
+<div class="modal fade" id="city" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel">Send Request to Fill Story</h4>
+            </div>
+            <div class="modal-body">
+                    <div class="map_canvas"></div>
+                    <form id="form-body" class="form-horizontal" method="post" action="{{ url_for('users.cityview' , user = current_user.username)}}" enctype="multipart/form-data">
+                    
+                    <label class="control-label col-sm-2">Location</label>
+                    <div id="pac-container">
+                    <input class = "form-control" id="geocomplete" name="loc_name" type="text" placeholder="Type in a location" />
+                    </div>
+                    <input type="hidden" class = "form-control" name="lat" type="text" value=""> 
+                    <input type="hidden" class = "form-control" name="lng" type="text" value=""> 
+                    
+                    <button type="submit" form="form-body" class="btn btn-success" value="Submit" >Submit</button>
+                        
+                </form> 
+            </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-simple" data-dismiss="modal">Close</button>
+                  </div>
+          </div>
+        </div>
+      </div>
+
 <div class="container-fluid text-center main-body">
+        
     <div class="row content text-center">
 
         <div class="col-sm-3">
@@ -17,7 +46,11 @@
                 <h5> Actions </h5>
             </div>
             <div class="dash-body-admin text-left">
-                <a href="{{ url_for('users.nearme', user=current_user.username) }}" class="btn btn-actions"> Outbreaks Near Me </a>
+                <a href="{{ url_for('users.nearme', user=current_user.username) }}" class="btn btn-actions col-sm-2" data-toggle="tooltip" title="Check for outbreaks of diseases near your current location."> Outbreaks Near Me </a> 
+                <span data-toggle="modal" data-target="#city">
+                <a class="btn btn-actions " data-toggle="tooltip" title="Check for outbreaks of diseases in a particular city." >Outbreaks in a City </a> 
+                </span>
+                <a href="{{ url_for('users.globalmap', user=current_user.username) }}" class="btn btn-actions"data-toggle="tooltip" title="Check for outbreaks all over the world."> Global Map </a> 
 
             </div>
 
@@ -58,4 +91,21 @@
         }
 
      </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD17OTqHh1iI6T_8uSGlO_0SXjymIQJGVU&libraries=places""></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<script src="{{ url_for('static', filename='js/jquery.geocomplete.js' ) }}"></script>
+<script src="{{ url_for('static', filename='js/geocomplete.js' ) }}"></script>
+
+
+<style>
+        
+        .pac-container {
+          padding-bottom: 12px;
+          margin-right: 12px;
+          z-index: 99999 !important;
+        }
+  
+      </style>
 {% endblock %}

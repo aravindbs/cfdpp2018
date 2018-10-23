@@ -3,11 +3,9 @@
     <div class="row content text-center">
         <div id="form-container" class='col-sm-8 col-sm-offset-2'>
             <div id="form-title">
-                {% if form_data %}
-                <h4>Edit Profile</h4>
-                {% else %}
+                
                 <h4>Sign Up</h4>
-                {% endif %}
+              
             </div>
             <form id="form-body" class="form-horizontal" method="post" action="{{ url_for('admin.signup') }}" enctype="multipart/form-data">
                 {% for field in form %}

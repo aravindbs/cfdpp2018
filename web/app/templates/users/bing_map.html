@@ -18,15 +18,14 @@
 
         var center = map.getCenter();
 
-        //Create custom Pushpin
-        
         var pin = new Microsoft.Maps.Pushpin(center, { color: 'blue' });
-
-        //Add the pushpin to the map
+        pin.metadata = { title : 'Current Location'};
+        Microsoft.Maps.Events.addHandler(pin, 'click', pushpinClicked);
         map.entities.push(pin);
 
         var latlongs = JSON.parse('{{ plot_locations | tojson }}');
-        console.log(latlongs)
+        var disease_count = JSON.parse('{{ disease_count | tojson }}');
+
         var locs = [];
         
         for(var i=0,len = latlongs.length;i<len;i++){
@@ -34,11 +33,20 @@
             var newElement = {}
             newElement = new Microsoft.Maps.Location(latlongs[i].latitude, latlongs[i].longitude)
             locs.push(newElement);
-            console.log(locs.length)
+            var temp = latlongs[i].place_id;
+
+            for (var key in disease_count) 
+            {
+                if(key == temp) 
+                    value = disease_count[key]; 
+            }
+            var value = JSON.stringify(value); 
+            value = value.replace('{' , '').replace('}', '').replace(/"/g, ''); 
             var pin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(latlongs[i].latitude, latlongs[i].longitude) , { color : 'red'});
             pin.metadata = {
-                title: 'Pin ' + i,
-                description: 'Description for pin' + i
+                
+                title: latlongs[i].loc_name,
+                description: value
             };
             
             Microsoft.Maps.Events.addHandler(pin, 'click', pushpinClicked);
@@ -65,6 +73,6 @@
     </script>
 
 
-    <div id="myMap" style="position:relative;width:1200px;height:500px;"></div>
+    <div id="myMap" style="position: relative;width:1200px;height:500px;"></div>
     {% endblock %}
 </html>

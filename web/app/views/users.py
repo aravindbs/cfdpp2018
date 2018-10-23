@@ -6,12 +6,15 @@ from app.login import User
 from app.forms.users import UserLoginForm, UserSignUpForm
 import yaml, requests, json
 
+from app.utils import get_plot_locations, get_current_location, get_dest_list
+
 def load_config ():
     with open ('../config.yml') as f:
         config = yaml.load(f)
         return config 
 
 config = load_config()
+api = config['BING_API_KEY']
 
 users = Blueprint('users', __name__)
 
@@ -64,18 +67,17 @@ def signup():
 
     args = request.args
     form = UserSignUpForm()
- #   form_data = {}
+ 
     title = 'DiseaseWatch | Sign Up'
     if args:
         title = 'DiseaseWatch | Edit Profile'
         user = args.get('user')
         form_data = mongo.db.users.find_one({'username' : user})    
         form_data.pop('password')
-        print (form_data)
+        
     return render_template('users/signup.html',  
                             title = title, 
                             form = form,
-                         #   form_data = form_data
                             )
 
 
@@ -107,50 +109,61 @@ def dashboard(user):
             mongo.db.current_loc.insert(position)
         
             
-    return render_template ('users/dashboard.html', title = 'Home | {username}'.format(username=user), user=user)
+    return render_template ('users/dashboard.html', title = 'Home | {username}'.format(username=current_user.username), user=user)
 
 @users.route('/nearme/<user>',methods=['GET', 'POST'])
 @login_required
 def nearme(user):
-    
-    api = config['BING_API_KEY']
-    current_location = dict(mongo.db.current_loc.find_one({'username' : current_user.username}) )
-    current_location.pop('_id')
-    current_location.pop('username')
 
-    all_locations = list(mongo.db.reports.find({}))
-    plot_locations = []
+    current_location = get_current_location(current_user.username)
+    dest_list, disease_count, all_locs = get_dest_list()
 
-    for loc in all_locations:
-        loc.pop('_id')
-        loc.pop('disease_name')
-        loc.pop('date')
-        loc.pop('age')
-        loc.pop('gender')
-        loc.pop('file')
-        loc.pop('place_id')
-        loc["latitude"] = loc.pop('lat')
-        loc["longitude"] = loc.pop('lng')
-    
+    print(all_locs)
     data = {}
     origin_list = []
     origin_list.append(current_location)
-    dest_list = all_locations
     
     data["origins"] = origin_list
     data["destinations"] = dest_list
     data["travelMode"] = "driving"
    
-    r = requests.post('https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?key=' + api , data=json.dumps(data))
+    plot_locations = get_plot_locations(data, all_locs)
 
-    result_list = r.json()['resourceSets'][0]['resources'][0]['results']
-
-    for result,loc in zip(result_list , all_locations): 
-        if result['travelDistance'] <= 500 and result['travelDistance'] >=0:
-            plot_locations.append(loc)
-
-    print(plot_locations)
+    return render_template('users/bing_map.html', api=api, current_location=current_location, plot_locations=plot_locations, disease_count=disease_count)
     
-    all_reports = mongo.db.reports.find({})
-    return render_template('users/bing_map.html', api=api, current_location=current_location, plot_locations=plot_locations)
+@users.route('/cityview/<user>',methods=['GET', 'POST'])
+@login_required
+def cityview(user):
+
+    dest_list, disease_count, all_locs = get_dest_list()
+
+    if request.method == "POST":
+        form_data = request.form.to_dict()
+        form_data["latitude"] = form_data.pop('lat')
+        form_data["longitude"] = form_data.pop('lng')
+        current_location = form_data
+        
+        data = {}
+        origin_list = []
+        origin_list.append(form_data)
+        
+        data["origins"] = origin_list
+        data["destinations"] = dest_list
+        data["travelMode"] = "driving"
+
+        plot_locations = get_plot_locations(data, dest_list)
+       
+    return render_template('users/bing_map.html', api=api, current_location=current_location, plot_locations=plot_locations, disease_count=disease_count)
+
+
+@users.route('/globalmap/<user>',methods=['GET', 'POST'])
+@login_required
+def globalmap(user):
+
+    current_location = get_current_location(current_user.username)
+    dest_list, disease_count, all_locs = get_dest_list()
     
+    return render_template('users/bing_map.html', api=api, current_location=current_location, plot_locations=dest_list, disease_count=disease_count)
+    
+
+

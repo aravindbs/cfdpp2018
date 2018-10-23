@@ -6,16 +6,17 @@ from flask_pymongo import PyMongo
 from flask_login import LoginManager
 import yaml
 import os 
-from dotenv import load_dotenv
 
-load_dotenv(dotenv_path='.env')
-'''
+#from dotenv import load_dotenv
+
+#load_dotenv(dotenv_path='.env')
+
 def load_config ():
     with open ('../config.yml') as f:
         config = yaml.load(f)
         return config 
-'''
-# config = load_config()
+
+config = load_config()
 
 app = Flask(__name__)
 
