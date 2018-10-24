@@ -1,4 +1,4 @@
-from app import app
+from app import app, config
 import os
 import requests
 from flask import render_template, url_for
@@ -14,7 +14,7 @@ def index():
 @app.route('/mapsapi')
 def mapsapi():
     api_url = "http://maps.googleapis.com/maps/api/js?key=" + \
-        os.getenv('MAPS_API_KEY')
+        config['MAPS_API_KEY']
     resp = requests.get(api_url)
     return resp.text
 

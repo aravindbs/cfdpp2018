@@ -4,6 +4,7 @@ app/static/files
 config.yml
 config.js
 map.html
+config.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
