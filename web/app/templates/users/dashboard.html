@@ -46,11 +46,11 @@
                 <h5> Actions </h5>
             </div>
             <div class="dash-body-admin text-left">
-                <a href="{{ url_for('users.nearme', user=current_user.username) }}" class="btn btn-actions col-sm-2" data-toggle="tooltip" title="Check for outbreaks of diseases near your current location."> Outbreaks Near Me </a> 
+                <a href="{{ url_for('users.nearme', user=current_user.username) }}" class="btn btn-actions col-sm-3"  data-toggle="tooltip" title="Check for outbreaks of diseases near your current location."> Outbreaks Near Me </a> 
                 <span data-toggle="modal" data-target="#city">
-                <a class="btn btn-actions " data-toggle="tooltip" title="Check for outbreaks of diseases in a particular city." >Outbreaks in a City </a> 
+                <a class="btn btn-actions col-sm-3" data-toggle="tooltip" title="Check for outbreaks of diseases in a particular city." >Outbreaks in a City </a> 
                 </span>
-                <a href="{{ url_for('users.globalmap', user=current_user.username) }}" class="btn btn-actions"data-toggle="tooltip" title="Check for outbreaks all over the world."> Global Map </a> 
+                <a href="{{ url_for('users.globalmap', user=current_user.username) }}" class="btn btn-actions col-sm-3"data-toggle="tooltip" title="Check for outbreaks all over the world."> Global Map </a> 
 
             </div>
 

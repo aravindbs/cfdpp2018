@@ -3,7 +3,7 @@ from flask_login import login_user, login_required, current_user, logout_user, l
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import mongo
 from app.login import User
-from app.forms.admin import AdminLoginForm, AdminSignUpForm, ReportDiseaseForm
+from app.forms.admin import AdminLoginForm, AdminSignUpForm, ReportDiseaseForm, ReportDeathForm
 from datetime import datetime 
 import os
 from werkzeug.utils import secure_filename
@@ -118,3 +118,33 @@ def reportdisease(user):
         mongo.db.reports.insert(form_data)
         
     return render_template('admin/reportdisease.html', title = 'Report Disease', form = form)
+
+
+@admin.route('<user>/reportdeath', methods=['GET', 'POST'])
+@login_required
+def reportdeath(user):
+    form = ReportDeathForm()
+
+    if request.method == 'POST':
+        form_data = request.form.to_dict()
+      
+        for f in request.files.getlist('file'):
+           
+            if f.filename:
+                filename = secure_filename(f.filename)
+                f.save(os.path.join("app/static/files/", filename))
+                url = "../static/files/" + filename 
+        
+                form_data['url'] = url 
+                
+        form_data.pop('submit')
+
+        form_data['date'] = datetime.strptime(form_data['date'], "%Y-%m-%d")
+
+        mongo.db.deaths.insert(form_data)
+
+    return render_template('admin/reportdisease.html', title = 'Report Death', form = form)
+
+
+
+    
