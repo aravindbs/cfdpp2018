@@ -40,6 +40,38 @@ html {
     color: #222;
 }
 
+.btn-group{
+    margin-top: 5%;
+}
+.btn-index {
+    border-radius: 0;
+    font-family: Ubuntu-B;
+    margin: 0%;
+    width :50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 0%;
+    padding-top:30px;
+    text-align: center;
+    height: 15%;
+    font-size: 18px;
+
+}
+.btn-dash {
+    border-radius: 0;
+    font-family: Ubuntu-B;
+    margin: 0%;
+    width :50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 0%;
+    padding-top:30px;
+    text-align: center;
+    height: 15%;
+    font-size: 19px;
+
+}
+
 div.welcome h1{
     font-size: 50px;
 }
@@ -82,6 +114,7 @@ div.features-bg h2 {
     background:  #222;;
     color: rgb(255, 255, 255);
     text-align: center;
+    margin-top: 5px;
  
 }
 
@@ -94,8 +127,9 @@ div.features-bg h2 {
 
 }
 .footer-admin h5,
+.footer-admin h4,
 .footer-admin a {
-    color: black
+    color: black !important;
 }
 
 .page-wrap {
@@ -125,6 +159,7 @@ div.features-bg h2 {
     padding: 2%;
     margin: 0%;
     border-radius: 5px;
+    color: white;
 }
 #form-container {
     border-radius: 5px;
@@ -132,19 +167,23 @@ div.features-bg h2 {
 
 h1 ,h2,h3,h4, h5{
     font-family:  Ubuntu-B;
-    color: white;
+    color: white !important;
 }
+
 a,p, input, li{
     font-family:  Ubuntu-R;
     font : Ubuntu-R;
     color: white;
-
 }
 
+#date {
+    font-family:  Ubuntu-R;
+    font : Ubuntu-R;
+    color: black;
+}
 label, button{
     font-family:  Ubuntu-R;
     color: black;
-
 }
 
 .semi-bold-black{

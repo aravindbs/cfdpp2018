@@ -5,7 +5,11 @@ from flask import Flask, Blueprint
 from flask_pymongo import PyMongo
 from flask_login import LoginManager
 import yaml
-import os
+import os 
+
+#from dotenv import load_dotenv
+
+#load_dotenv(dotenv_path='.env')
 
 def load_config ():
     with open ('../config.yml') as f:

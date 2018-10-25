@@ -1,7 +1,8 @@
 from flask_wtf import Form
 from wtforms import TextField
-from wtforms import Form, BooleanField, StringField, PasswordField, RadioField, DateField, IntegerField, SubmitField, validators, FileField
+from wtforms import Form, BooleanField, StringField, PasswordField, RadioField, SelectField,  DateField, IntegerField, SubmitField, validators, FileField
 
+disease_choices = [('Acute Encephalitis/Meningitis Bacterial' , 'Acute Encephalitis/Meningitis Bacterial') , ('Acute Encephalitis/Meningitis Viral' , 'Acute Encephalitis/Meningitis Viral') , ('Anthrax' , 'Anthrax') , ('Chickenpox' , 'Chickenpox') , ('Cholera' , 'Cholera') , ('Diphtheria' , 'Diphtheria') , ('Dysentery' , 'Dysentery') , ('Food Poisoning' , 'Food Poisoning') , ('Gastroenteritis (< 2years)' , 'Gastroenteritis (< 2years)') , ('Hepatitis A' , 'Hepatitis A') , ('Hepatitis B' , 'HepatitisB') , ('Hepatitis Unspecified' , 'Hepatitis Unspecified') , ('Legionnaires Disease' , 'Legionnaires Disease') , ('Leptospirosis' , 'Leptospirosis') , ('Malaria' , 'Malaria') , ('Measles' , 'Measles') , ('Meningococcal Septicaemia' , 'Meningococcal Septicaemia') , ('Mumps' , 'Mumps') , ('Paratyphoid Fever' , 'Paratyphoid Fever') , ('Plague' , 'Plague') , ('Poliomyelitis (Paralytic)' , 'Poliomyelitis (Paralytic)') , ('Poliomyelitis (Acute)' , 'Poliomyelitis (Acute)') , ('Rabies', 'Rabies') , ('Relapsing Fever' , 'Relapsing Fever') , ('Rubella' , 'Rubella') , ('Scarlet Fever' , 'Scarlet Fever') , ('Smallpox' , 'Smallpox') , ('Tetanus' , 'Tetanus') , ('Tuberculosis (Pulmonary)' , 'Tuberculosis (Pulmonary)') , ('Tuberculosis (Non Pulmonary)' , 'Tuberculosis (Non Pulmonary)') , ('Typhoid' , 'Typhoid') , ('Typhus' , 'Typhus') , ('Viral Haemorraghic Fever' , 'Viral Haemorraghic Fever') , ('Whooping Cough' , 'Whooping Cough') , ('Yellow Fever' , 'Yellow Fever')]
 class AdminSignUpForm(Form):
     username = StringField('Username', [validators.Length(min=4, max=25)])
     email = StringField('Email Address', [validators.Length(min=6, max=35)])
@@ -25,7 +26,7 @@ class AdminLoginForm(Form):
     submit = SubmitField('Submit')
 
 class ReportDiseaseForm(Form):
-    disease_name = StringField('Name of Disease' , [validators.DataRequired()])
+    disease_name = SelectField('Name of Disease' ,choices = disease_choices)
     date = DateField('Date of Report')
     age = IntegerField('Age of patient')
     gender = RadioField('Gender' , choices = [('male', 'Male') , ('female', 'Female')])
