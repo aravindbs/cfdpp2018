@@ -32,4 +32,13 @@ class ReportDiseaseForm(Form):
     gender = RadioField('Gender' , choices = [('male', 'Male') , ('female', 'Female')])
     file = FileField('Upload Report File')
     submit = SubmitField('Submit')
+
+class ReportDeathForm(Form):
+    disease_name = SelectField('Cause of death' ,choices = disease_choices)
+    date = DateField('Date of Report')
+    age = IntegerField('Age of patient')
+    gender = RadioField('Gender' , choices = [('male', 'Male') , ('female', 'Female')])
+    file = FileField('Upload Certificate')
+    submit = SubmitField('Submit')
+    
     
