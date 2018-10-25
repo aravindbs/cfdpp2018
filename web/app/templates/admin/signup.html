@@ -7,7 +7,7 @@
                 <h4>Sign Up</h4>
               
             </div>
-            <form id="form-body" class="form-horizontal" method="post" action="{{ url_for('admin.signup') }}" enctype="multipart/form-data">
+            <form id="form-body" class="form-horizontal dash-body-admin" method="post" action="{{ url_for('admin.signup') }}" enctype="multipart/form-data">
                 {% for field in form %}
                 <div class="form-group">
                     {% if field.name == 'submit' %}

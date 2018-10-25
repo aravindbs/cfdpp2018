@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, url_for, flash, redirect
 from flask_login import login_user, login_required, current_user, logout_user, login_manager, UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import mongo
+from app import mongo,config
 from app.login import User
 from app.forms.admin import AdminLoginForm, AdminSignUpForm, ReportDiseaseForm, ReportDeathForm
 from datetime import datetime 
@@ -42,7 +42,7 @@ def login():
 def signup():
     if request.method == 'POST':
         form_data = request.form.to_dict()
-        
+
         pwd = form_data['password']
         hashed_pwd = generate_password_hash(pwd)
 
@@ -94,11 +94,12 @@ def dashboard(user):
     user = mongo.db.users.find_one(query)
     return render_template('admin/dashboard.html', title='Admin', user=user)
 
+
 @admin.route('<user>/reportdisease', methods=['GET', 'POST'])
 @login_required
 def reportdisease(user):
     form = ReportDiseaseForm()
-    
+
     if request.method == 'POST':
         form_data = request.form.to_dict()
       

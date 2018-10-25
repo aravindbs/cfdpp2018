@@ -19,6 +19,14 @@ html {
     background-color: white;
     color: black;
 }
+
+.navbar-admin a {
+    color : black !important;
+}
+.navbar-admin a:hover{
+    color : darkgray !important;
+}
+
 .navbar-users {
     background-color: #222;
 }
@@ -32,6 +40,38 @@ html {
     background-color: white;
     border-color : white;
     color: #222;
+}
+
+.btn-group{
+    margin-top: 5%;
+}
+.btn-index {
+    border-radius: 0;
+    font-family: Ubuntu-B;
+    margin: 0%;
+    width :50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 0%;
+    padding-top:30px;
+    text-align: center;
+    height: 15%;
+    font-size: 18px;
+
+}
+.btn-dash {
+    border-radius: 0;
+    font-family: Ubuntu-B;
+    margin: 0%;
+    width :50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 0%;
+    padding-top:30px;
+    text-align: center;
+    height: 15%;
+    font-size: 19px;
+
 }
 
 div.welcome h1{
@@ -76,6 +116,7 @@ div.features-bg h2 {
     background:  #222;;
     color: rgb(255, 255, 255);
     text-align: center;
+    margin-top: 5px;
  
 }
 
@@ -88,8 +129,9 @@ div.features-bg h2 {
 
 }
 .footer-admin h5,
+.footer-admin h4,
 .footer-admin a {
-    color: black
+    color: black !important;
 }
 
 .page-wrap {
@@ -119,6 +161,7 @@ div.features-bg h2 {
     padding: 2%;
     margin: 0%;
     border-radius: 5px;
+    color: white;
 }
 #form-container {
     border-radius: 5px;
@@ -126,7 +169,7 @@ div.features-bg h2 {
 
 h1 ,h2,h3,h4, h5{
     font-family:  Ubuntu-B;
-    color: white;
+    color: white !important;
 }
 
 a,p, input, li{
@@ -168,7 +211,7 @@ label, button{
     margin-right: 10px;
     border-radius: 5px;
 }
-.dash-header-admin h5 {
+.dash-header-admin h5, h4 {
     color : #222;
 }
 .dash-body-admin {

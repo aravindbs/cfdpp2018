@@ -1,24 +1,20 @@
-from app import app
+from app import app, config
 import os
 import requests
 from flask import render_template, url_for
 
-import yaml 
+import yaml
 
-def load_config ():
-    with open ('../config.yml') as f:
-        config = yaml.load(f)
-        return config 
-
-config = load_config()
 
 @app.route('/')
 def index():
-    return render_template('index.html', title = "Home")
+    return render_template('index.html', title="Home")
+
 
 @app.route('/mapsapi')
 def mapsapi():
-    api_url = "http://maps.googleapis.com/maps/api/js?key=" + config['MAPS_API_KEY'] 
+    api_url = "http://maps.googleapis.com/maps/api/js?key=" + \
+        config['MAPS_API_KEY']
     resp = requests.get(api_url)
     return resp.text
 
