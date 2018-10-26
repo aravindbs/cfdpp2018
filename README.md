@@ -1,6 +1,16 @@
-[StraightOuttaKengeri](https://twitter.com/SoKengeri)'s submission for [Microsoft's CodeFunDo 2018](http://www.codefundo.io/).
+[StraightOuttaKengeri](https://twitter.com/SoKengeri)'s submission for [Microsoft's codefundo++ 2018](http://www.codefundo.io/).
+
+# DiseaseWatch 
+![Infographic](https://github.com/aravindbs/cfdpp2018/blob/master/docs/infographic.png)
+## [Video Demonstration](https://youtu.be/xOkbK5FE-44)
+
+## Architecture & Tech stack 
+![Architecure](https://github.com/aravindbs/cfdpp2018/blob/master/docs/architecture.png)
 
 
+
+Phase 1 Submisssion
+--- 
 # Epidemic Prediction
 
 There have been 9 major epidemics of infectious diseases in India since 2006, and have had a death toll of over 50,000 over the last decade world-
