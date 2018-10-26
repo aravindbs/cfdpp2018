@@ -1,0 +1,9 @@
+{% extends "users/base.html" %} {% block body %}
+
+<div col-sm-6>
+<img src="{{ url }}" > 
+</div>
+
+<a href="{{ url_for('users.dashboard', user=current_user.username) }}"class="btn btn-info"> Back to Dashboard</a>
+
+{% endblock %}

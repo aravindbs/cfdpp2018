@@ -1,30 +1,28 @@
 {% extends "admin/base.html" %} {% block body %}
+
 <div class="container-fluid text-center main-body">
-    <div class="row content text-center">
-
-        <div class="col-sm-3">
-            <div class="well">
-                <img src="https://avatars.io/avatar/HASH/size" class="img-circle" height="65" width="65" alt="Avatar">
-                <h3 class="semi-bold-black">{{ user.first_name }} {{ user.last_name }}</h3>
-                <h4 class="semi-bold-black"> {{ user.role }} </h4>
-                <p class="font-lightitalic">@{{ user.username }}</p>
-
+        <div class="row content text-center">
+    
+            <div class="col-sm-6 col-sm-offset-3">
+                <div class="well">
+                    <img src="https://avatars.io/avatar/HASH/size" class="img-circle" height="65" width="65" alt="Avatar">
+                    <h3 class="semi-bold-black">{{ user.first_name }} {{ user.last_name }}</h3>
+                    <h4 class="semi-bold-black"> {{ user.role }} </h4>
+                    <p class="font-lightitalic">@{{ user.username }}</p>
+    
+                </div>
             </div>
-        </div>
-        <div class="col-sm-9">
-            <div class="dash-header-admin text-left">
-                <h5> Actions </h5>
-            </div>
-            <div class="dash-body-admin text-left">
-                <a href="{{ url_for('admin.reportdisease', user=current_user.username) }}" class="btn btn-actions"> Report
-                    Disease </a>
-                    <a href="{{ url_for('admin.reportdeath', user=current_user.username) }}" class="btn btn-actions"> Report
-                            Death </a>
+            <div class="col-sm-6 col-sm-offset-3">
                 
+                    <a href="{{ url_for('admin.reportdisease', user=current_user.username) }}" class="btn btn-info btn-dash"> Report
+                            Disease </a>
+                            <a href="{{ url_for('admin.reportdeath', user=current_user.username) }}" class="btn btn-info btn-dash"> Report
+                                    Death </a>
+    
+    
             </div>
-
-
         </div>
     </div>
-</div>
 {% endblock %}
+
+

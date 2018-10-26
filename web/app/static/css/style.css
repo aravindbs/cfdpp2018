@@ -167,9 +167,14 @@ div.features-bg h2 {
     border-radius: 5px;
 }
 
+.modal-header h4 {
+    font-family:  Ubuntu-B;
+    color : black; 
+}
+
 h1 ,h2,h3,h4, h5{
     font-family:  Ubuntu-B;
-    color: white !important;
+    color: white;
 }
 
 a,p, input, li{

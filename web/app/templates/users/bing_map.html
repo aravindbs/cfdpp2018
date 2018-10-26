@@ -1,7 +1,7 @@
 {% extends "users/base.html" %} {% block body %}
 
     <script type='text/javascript'
-            src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap'
+            src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap'
             async defer></script>
     <script type='text/javascript'>
     function GetMap() {
@@ -73,6 +73,10 @@
     </script>
 
 
-    <div id="myMap" style="position: relative;width:1200px;height:500px;"></div>
+    <div id="myMap" style="position:relative;width:80%;height:80%;left:10%;right:10%">
+    </div>
+
+    <a href="{{ url_for('users.dashboard', user=current_user.username) }}"class="btn btn-info"> Back to Dashboard</a>
+
     {% endblock %}
 </html>

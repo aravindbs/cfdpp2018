@@ -6,6 +6,9 @@ config.js
 map.html
 config.json
 todo.txt
+knowledge_graph.py
+test.json
+test.txt
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

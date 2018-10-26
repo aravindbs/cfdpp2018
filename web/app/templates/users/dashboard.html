@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Send Request to Fill Story</h4>
+                <h4 class="modal-title" id="myModalLabel">Enter Location</h4>
             </div>
             <div class="modal-body">
                 <div class="map_canvas"></div>
@@ -19,6 +19,36 @@
                     <input type="hidden" class="form-control" name="lng" type="text" value="">
 
                     <button type="submit" form="form-body" class="btn btn-success" value="Submit">Submit</button>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-simple" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="results" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">What would you like to search for?</h4>
+            </div>
+            <div class="modal-body">
+                <div class="map_canvas"></div>
+                <form id="form2" class="form-horizontal" method="post" action="{{ url_for('users.viewresults' , user = current_user.username)}}"
+                    enctype="multipart/form-data">
+
+                    <label class="control-label col-sm-2">Search</label>
+                    <select name="query" id="query">   
+                        {% for input in choices%}
+                            <option  value="{{input}}">{{input}}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" form="form2" class="btn btn-success" value="Submit">Submit</button>
 
                 </form>
             </div>
@@ -52,7 +82,9 @@
                 </span>
                 <a href="{{ url_for('users.globalmap', user=current_user.username) }}" class="btn btn-info btn-dash"
                     data-toggle="tooltip" title="Check for outbreaks all over the world."> Global Map </a>
-
+                <span data-toggle="modal" data-target="#results">
+                    <a class="btn btn-info btn-dash" data-toggle="tooltip" title="Get information about a disease.">Disease Information </a>
+                </span>
 
 
         </div>

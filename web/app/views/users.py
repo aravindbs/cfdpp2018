@@ -8,6 +8,8 @@ import yaml, requests, json
 
 from app.utils import get_plot_locations, get_current_location, get_dest_list
 
+from azure.storage.blob import BlockBlobService , ContentSettings
+
 def load_config ():
     with open ('../config.yml') as f:
         config = yaml.load(f)
@@ -17,6 +19,8 @@ config = load_config()
 api = config['BING_API_KEY']
 
 users = Blueprint('users', __name__)
+
+block_blob_service = BlockBlobService(account_name = config['ACCOUNT_NAME'], account_key= config['BLOB_STORAGE_KEY'])
 
 
 @users.route('/login', methods=['GET', 'POST'])
@@ -97,6 +101,8 @@ def dashboard(user):
     query = {'username': user, 'role': 'user'}
     user = mongo.db.users.find_one(query)
 
+    choices = ['Anthrax', 'Cholera', 'Diphtheria', 'Dysentry', 'Food Poisoning', 'Hepatitis A', 'Leptospirosis', 'Malaria', 'Mumps', 'Polio', 'Rabies', 'Rubella', 'Smallpox', 'Tetanus', 'Tuberculosis']
+
     if request.method == "POST":
         position = request.json
 
@@ -107,13 +113,10 @@ def dashboard(user):
             mongo.db.current_loc.update(query,  position, upsert=True)
         else:
             mongo.db.current_loc.insert(position)
-        
-            
-    return render_template ('users/dashboard.html', title = 'Home | {username}'.format(username=current_user.username), user=user)
 
-    return render_template('users/dashboard.html', title='Home | {username}'.format(username=user), user=user)
+    return render_template ('users/dashboard.html', title = 'Home | {username}'.format(username=current_user.username), user=user, choices=choices)
 
-
+    
 @users.route('/nearme/<user>', methods=['GET', 'POST'])
 @login_required
 def nearme(user):
@@ -142,6 +145,7 @@ def cityview(user):
 
     if request.method == "POST":
         form_data = request.form.to_dict()
+      
         form_data["latitude"] = form_data.pop('lat')
         form_data["longitude"] = form_data.pop('lng')
         current_location = form_data
@@ -169,4 +173,16 @@ def globalmap(user):
     return render_template('users/bing_map.html', api=api, current_location=current_location, plot_locations=dest_list, disease_count=disease_count)
     
 
+@users.route('/viewresults/<user>',methods=['GET', 'POST'])
+@login_required
+def viewresults(user):
 
+    if request.method == 'POST':
+        form_data = request.form.to_dict()
+        print(form_data)
+        query = form_data['query']
+        query = query.lower()
+        query = query.replace(' ', '_')
+        url = 'https://diseasewatch.blob.core.windows.net/pdfs/' + query + '.jpg'
+        
+        return render_template('users/results.html' , url=url)
