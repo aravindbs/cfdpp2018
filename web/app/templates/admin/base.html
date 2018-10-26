@@ -15,7 +15,7 @@
 
 </head>
 
-<body >
+<body class="admin" >
 
     <nav class="navbar navbar-inverse navbar-admin">
         <div class="container-fluid">
@@ -30,7 +30,7 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     {% if current_user.is_authenticated %}
-                    <li class="active">
+                    <li class="active-admin">
                         <a href="{{ url_for('admin.dashboard', user=current_user.username) }}"> <span class="glyphicon glyphicon-home"></span> Home</a>
                     </li>
                     {% endif %}

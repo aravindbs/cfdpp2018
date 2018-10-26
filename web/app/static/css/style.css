@@ -1,5 +1,6 @@
 
-body {
+
+.admin {
     padding-bottom:60px;
     background-image: url("../img/bg.jpg");
 
@@ -12,8 +13,26 @@ body {
     background-size: auto;
     background-attachment: fixed;
 }
+
+
+.users {
+    padding-bottom:60px;
+    background-image: url("../img/bg-users.jpg");
+
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-attachment: fixed;
+}
 html {
     height: 100%;
+}
+.results-image {
+    width:100%; 
 }
 .navbar-admin {
     background-color: white;
@@ -29,6 +48,10 @@ html {
 
 .navbar-users {
     background-color: #222;
+}
+
+.active-admin {
+    background-color: lightgray;
 }
 .btn-info {
     background-color:#222;
@@ -217,7 +240,7 @@ label, button{
     border-radius: 5px;
 }
 .dash-header-admin h5, h4 {
-    color : #222;
+    color : white;
 }
 .dash-body-admin {
     background-color: lightgray !important;
