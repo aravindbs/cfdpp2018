@@ -25,6 +25,7 @@
 
         var latlongs = JSON.parse('{{ plot_locations | tojson }}');
         var disease_count = JSON.parse('{{ disease_count | tojson }}');
+        var death_count = JSON.parse('{{ death_count | tojson }}');
 
         var locs = [];
         
@@ -40,15 +41,36 @@
                 if(key == temp) 
                     value = disease_count[key]; 
             }
+
+            for (var key in death_count) 
+            {
+                if(key == temp) 
+                    value2 = disease_count[key]; 
+            }
+
             var value = JSON.stringify(value); 
+            var value2 = JSON.stringify(value2); 
+            console.log(value2);
             value = value.replace('{' , '').replace('}', '').replace(/"/g, ''); 
-            var pin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(latlongs[i].latitude, latlongs[i].longitude) , { color : 'red'});
-            pin.metadata = {
+            if (value2)
+            {  
+                value2 = value2.replace('{' , '').replace('}', '').replace(/"/g, ''); 
+                var pin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(latlongs[i].latitude, latlongs[i].longitude) , { color : 'red'});
+                pin.metadata = {
                 
                 title: latlongs[i].loc_name,
-                description: value
-            };
-            
+                description: 'DISEASES:' + value + '\n\nDEATHS:' + value2
+            }
+            }
+            else {
+                
+                var pin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(latlongs[i].latitude, latlongs[i].longitude) , { color : 'red'});
+                pin.metadata = {
+                
+                title: latlongs[i].loc_name,
+                description: 'DISEASES:' + value 
+            }
+            }
             Microsoft.Maps.Events.addHandler(pin, 'click', pushpinClicked);
             map.entities.push(pin);
         }
