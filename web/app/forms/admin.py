@@ -14,6 +14,7 @@ class AdminSignUpForm(Form):
         validators.EqualTo('confirm', message='Passwords must match')
     ])
     confirm = PasswordField('Confirm Password')
+    file = FileField('Upload ID', validators=[InputRequired()])
     #admin_type = StringField('Administrator Type', [validators.Length(min=6, max=35)])
 
     submit = SubmitField('Submit')

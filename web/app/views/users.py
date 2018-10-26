@@ -5,8 +5,7 @@ from app import mongo,config
 from app.login import User
 from app.forms.users import UserLoginForm, UserSignUpForm
 import yaml, requests, json
-
-from app.utils import get_plot_locations, get_current_location, get_dest_list
+from app.utils import get_plot_locations, get_current_location, get_dest_list , get_death_list
 
 from azure.storage.blob import BlockBlobService , ContentSettings
 
@@ -124,6 +123,8 @@ def nearme(user):
     current_location = get_current_location(current_user.username)
     dest_list, disease_count, all_locs = get_dest_list()
 
+    death_dest_list, death_count = get_death_list()
+
     print(all_locs)
     data = {}
     origin_list = []
@@ -134,14 +135,16 @@ def nearme(user):
     data["travelMode"] = "driving"
    
     plot_locations = get_plot_locations(data, all_locs)
+    print(plot_locations)
 
-    return render_template('users/bing_map.html', api=api, current_location=current_location, plot_locations=plot_locations, disease_count=disease_count)
+    return render_template('users/bing_map.html', api=api, current_location=current_location, plot_locations=plot_locations, disease_count=disease_count, death_count=death_count)
     
 @users.route('/cityview/<user>',methods=['GET', 'POST'])
 @login_required
 def cityview(user):
 
     dest_list, disease_count, all_locs = get_dest_list()
+    death_dest_list, death_count = get_death_list()
 
     if request.method == "POST":
         form_data = request.form.to_dict()
@@ -160,7 +163,7 @@ def cityview(user):
 
         plot_locations = get_plot_locations(data, dest_list)
        
-    return render_template('users/bing_map.html', api=api, current_location=current_location, plot_locations=plot_locations, disease_count=disease_count)
+    return render_template('users/bing_map.html', api=api, current_location=current_location, plot_locations=plot_locations, disease_count=disease_count, death_count=death_count)
 
 
 @users.route('/globalmap/<user>',methods=['GET', 'POST'])
@@ -169,8 +172,9 @@ def globalmap(user):
 
     current_location = get_current_location(current_user.username)
     dest_list, disease_count, all_locs = get_dest_list()
+    death_dest_list, death_count = get_death_list()
     
-    return render_template('users/bing_map.html', api=api, current_location=current_location, plot_locations=dest_list, disease_count=disease_count)
+    return render_template('users/bing_map.html', api=api, current_location=current_location, plot_locations=dest_list, disease_count=disease_count, death_count=death_count)
     
 
 @users.route('/viewresults/<user>',methods=['GET', 'POST'])
