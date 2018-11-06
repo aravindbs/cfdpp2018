@@ -341,8 +341,6 @@ label, button{
     width: 14px;
 }
 
-
-
 @font-face { font-family: Ubuntu-M ;  src: url(../fonts/Ubuntu-M.ttf); }
 @font-face { font-family: Ubuntu-MI ;  src: url(../fonts/Ubuntu-MI.ttf); }
 @font-face { font-family: Ubuntu-L ;  src: url(../fonts/Ubuntu-L.ttf); }
