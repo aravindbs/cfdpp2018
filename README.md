@@ -1,21 +1,11 @@
 [StraightOuttaKengeri](https://twitter.com/SoKengeri)'s submission for [Microsoft's codefundo++ 2018](http://www.codefundo.io/).
 
 # DiseaseWatch 
-<<<<<<< HEAD
-![Infographic](https://github.com/aravindbs/cfdpp2018/blob/master/docs/img/infographic.png)
-## [Video Demonstration](https://youtu.be/xOkbK5FE-44)
-
-## Architecture & Tech stack 
-![Architecure](https://github.com/aravindbs/cfdpp2018/blob/master/docs/img/architecture.png)
-=======
 ![Infographic](https://github.com/aravindbs/cfdpp2018/blob/master/docs/infographic.png)
 ## [Video Demonstration](https://youtu.be/xOkbK5FE-44)
 
 ## Architecture & Tech stack 
 ![Architecure](https://github.com/aravindbs/cfdpp2018/blob/master/docs/architecture.png)
->>>>>>> b2800f18d4f9ba224e5f8e0569176461a8053919
-
-
 
 Phase 1 Submisssion
 --- 
