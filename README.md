@@ -1,15 +1,6 @@
 [StraightOuttaKengeri](https://twitter.com/SoKengeri)'s submission for [Microsoft's codefundo++ 2018](http://www.codefundo.io/).
 
 # DiseaseWatch 
-![Infographic](https://github.com/aravindbs/cfdpp2018/blob/master/docs/img/infographic.png)
-## [Video Demonstration](https://youtu.be/xOkbK5FE-44)
-
-## Architecture & Tech stack 
-![Architecure](https://github.com/aravindbs/cfdpp2018/blob/master/docs/img/architecture.jpg)
-
-Phase 1 Submisssion
---- 
-# Epidemic Prediction
 
 There have been 9 major epidemics of infectious diseases in India since 2006, and have had a death toll of over 50,000 over the last decade world-
 wide.
@@ -25,9 +16,41 @@ Assessment of regional and national statistics will help detect changes in the i
 
 In case of onset of a possible epidemic, alerts are sent out to the users and relevant agencies along with precautionary measures to be taken.
 
+
+## Architecture & Tech stack 
+![Architecure](https://github.com/aravindbs/cfdpp2018/blob/master/docs/img/architecture.jpg)
+
 ---
+### [Video Demonstration](https://youtu.be/xOkbK5FE-44)
 
- ##### References
-[Myers MF, Rogers DJ, Cox J, Flahault A, Hay SI. Forecasting Disease Risk for Increased Epidemic Preparedness in Public Health. Advances in parasitology. 2000;47:309-330.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3196833/)
+### [Presentation](https://github.com/aravindbs/cfdpp2018/blob/master/docs/presentation/DiseaseWatch.pdf)
 
+---
+## Instructions to run the code 
+
+- Clone the repository 
+```
+$ git clone https://github.com/aravindbs/cfdpp2018
+```
+- Change your working directory
+```
+$ cd cfdpp2018
+```
+- Create a python virtual environment and activate it.
+```
+$ virtualenv -p python3 venv
+$ . venv/bin/activate 
+```
+- Install the requirements specified in requirements.txt
+```
+$ pip install -r requirements.txt 
+```
+- Download the config file from [here](https://drive.google.com/file/d/1HVrXfXcR-E7o-haZsGN-LOWq_660q9yL/view) and place it in the working directory. 
+
+- Start the server
+```
+$ cd web
+$ python main.py
+```
+- Open up a web browser and type in ```localhost:5000```
 
