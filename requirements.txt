@@ -34,7 +34,7 @@ PyYAML==3.13
 requests==2.20.0
 six==1.11.0
 typed-ast==1.1.0
-urllib3==1.24
+urllib3==1.26.5
 Werkzeug==0.14.1
 wrapt==1.10.11
 WTForms==2.2.1
